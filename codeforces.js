@@ -15,10 +15,12 @@ request('https://codeforces.com/contests', (error, response, html) => {
             const id=tds;
             const tds1 = $(el).find("td");
             const title=$(tds1[0]).text().replace(/\s\s+/g, '');
-            const start=$(tds1[2]).text().replace(/\s\s+/g, '');
+            //const start=$(tds1[2]).text().replace(/\s\s+/g, '');
+            const start = new Date($(tds1[2]).text().replace(/\s\s+/g, '')+ '-0230');
+            const startdate = start.toUTCString().slice(0, -4).substr(5);
             const duration=$(tds1[3]).text().replace(/\s\s+/g, '');
             const link='https://codeforces.com/contest/'+id;
-            writeStream.write(`${title}, ${start}, ${duration}, ${link}`);
+            writeStream.write(`${title}, ${startdate}, ${duration}, ${link}`);
         });
         console.log('Scraping Done...');
     }    
